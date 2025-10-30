@@ -1,6 +1,6 @@
 # 3273 : 두수의 합 
 # 10.30 (목)
-# 투포인터로 풀수있다고함 
+# 투포인터(LEFT,RIGHT) 풀수있다고함 
 
 n=int(input())
 arr= list(map(int,input().split(' ')))
