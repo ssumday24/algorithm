@@ -23,3 +23,6 @@ arr=list(map(int,input().split(' ')))
 N=len(arr)
 
 func2(arr,N)
+#####
+for i in range()
+arr[i]=arr[i-1]-> 이렇게하면 덮어씌워짐
