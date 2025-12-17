@@ -1,4 +1,11 @@
 # 1926그림 . 복습
+"""
+7576: 토마토와 비교해보기.
+이 문제에서는 그림의 개수를 세어야 하기 때문에 
+모든 시작점을 한번에 큐에 넣는 방법을 적용할수없음.
+"""
+
+
 import sys
 from collections import deque
 input=sys.stdin.readline
