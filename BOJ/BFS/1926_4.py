@@ -1,11 +1,13 @@
 # BOJ 1926 : 그림 - 실버1 
-# 
+# 26.02.04
 """  (가독성)
 많은 개발자와 채점자가 선호하는 스타일은 '예외 조건은 최대한 빠르게 걸러낸다 (Early Exit)'는 원칙을 따릅니다.
 => 이렇게 continue 로 거르면 조건문 안깊어짐  
 """
 import sys
 from collections import deque
+# 포인터로 input -> sys.stdin.readline 함수 가리킴 
+input = sys.stdin.readline
 
 # n*m matrix
 n,m=map(int,input().split()) 
@@ -38,6 +40,8 @@ for a in range(n):
 
         while q:
             cur_x,cur_y = q.popleft()
+
+            #print(f"큐에서 나온 x,y 좌표 : {cur_x,cur_y}")
 
             # 상하좌우 탐색
             for i in range(4):
