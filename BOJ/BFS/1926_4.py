@@ -10,40 +10,62 @@ from collections import deque
 # n*m matrix
 n,m=map(int,input().split()) 
 board=[]
-# [0 * m ] 과의 차이 ?
+# [0 * m ] 과 다름주의
 visit=[[0] * m for _ in range(n)]
 q=deque()
 dx=[1,-1,0,0]
 dy=[0,0,1,-1]
+pic_cnt =0  #그림의 개수 
+max_area = 0 # 최대 넓이
 
 for _ in range(n):
     row = list(map(int,input().split()))
     board.append(row)
 
-start_x=0
-start_y=0
+# "모든 점에 대해" BFS
+for a in range(n):
+    for b in range(m):
 
-# 1. 방문 표식 남기고 큐에 넣기
-visit[start_x][start_y]=1
-q.append((start_x,start_y))
-
-while q:
-    cur_x,cur_y = q.popleft()
-
-    # 상하좌우 탐색
-    for i in range(4):
-        nx = cur_x + dx[i]
-        ny = cur_y + dy[i]
-
-        # 범위 벗어날때
-        if nx <0 or ny < 0 or nx >=n or ny>=m : continue 
-
-        # 이미 방문한곳일때
-        if visit[nx][ny] ==1  : continue
-
-        # 문제조건 : board==1 인곳만 탐색해야함
-        if board[nx][ny] == 0 : continue
+        # 이미 방문한곳 or 0인곳 스킵
+        if visit[a][b]== 1 or board[a][b]== 0 : continue
         
-        # 방문표시 후 큐에 넣기
-        visit[nx][ny]=1
-        q.append((nx,ny))
+        # 1. 방문 표식 남기고 큐에 넣기
+        visit[a][b]=1
+        q.append((a,b))
+
+        area = 1 # 그림 넓이 : 시작점 포함 1로시작
+        pic_cnt +=1 # 그림 개수 ++ 
+
+        while q:
+            cur_x,cur_y = q.popleft()
+
+            # 상하좌우 탐색
+            for i in range(4):
+                nx = cur_x + dx[i]
+                ny = cur_y + dy[i]
+
+                # 범위 벗어날때
+                if nx <0 or ny < 0 or nx >=n or ny>=m : continue 
+
+                # 이미 방문한곳일때
+                if visit[nx][ny] ==1  : continue
+
+                # 문제조건 : board==1 인곳만 탐색해야함
+                if board[nx][ny] == 0 : continue
+
+                # 방문표시 후 큐에 넣기
+                visit[nx][ny]=1
+                q.append((nx,ny))
+
+                # 넓이 증가 
+                area +=1 
+    
+        # 그림 최대 넓이 갱신
+        if area > max_area :
+            max_area = area
+
+# 그림의 개수
+print(pic_cnt)
+
+# 그림 최대 넓이
+print(max_area)
