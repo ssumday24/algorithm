@@ -1,79 +1,76 @@
-# 7576 - 토마토 G5 : 2026.01.06
-"""
-며칠이 지나면 토마토가 모두 익는지? 최소일수 계산 
-1 = 익음
-0 = 익지 X
--1 = 존재 X
-"""
+# BOJ 7576 토마토 : Gold 5 
+# 26.02.04
 import sys
 from collections import deque
-input  = sys.stdin.readline # () 쓰면 함수실행이니 안됨
+input = sys.stdin.readline
 
-# N * M 행렬 
-M,N = map(int,input().split(' '))
-day = 0 
+"""
+며칠이 지나면 모두 익는지 최소 일 수 
+1 : 익음 
+0 : 익지 X
+-1 : 없는 곳
+"""
+
+# N*M 행렬
+M, N = map(int,input().split())
 board=[]
-vis=[[0] * M for _ in range(N)] # 방문체크
+visit=[[0]*M for _ in range(N)]
 q=deque()
-dx = [1,-1,0,0]
-dy = [0,0,1,-1]
+dx=[1,-1,0,0]
+dy=[0,0,1,-1]
+day = 0 # 날짜계산
 
 for _ in range(N):
     row = list(map(int,input().split()))
     board.append(row)
 
-# "동시에 시작점이 여러개인" BFS 
 for a in range(N):
     for b in range(M):
-
-        if board[a][b] ==1 and vis[a][b]==0 :
-            # 방문체크 후 큐에넣기  
-            vis[a][b]=1
+        # 여러 시작점을 전부 큐에 넣기
+        if board[a][b]== 1 : 
+            visit[a][b]=1
             q.append((a,b))
 
+        # 토마토가 없는곳 : 여기서 visit 예외처리
+        if board[a][b] == -1 : 
+            visit[a][b]= -1 
 
-############### BFS 시작
+# 시작점 다 넣어두고, BFS 시작
 while q:
     cur_x,cur_y = q.popleft()
 
+    #상하좌우 탐색
     for i in range(4):
-        nx = cur_x+ dx[i]
+        nx = cur_x + dx[i]
         ny = cur_y + dy[i]
 
-        # 인덱스 예외처리
-        if nx <0 or ny < 0 or nx >=N or ny>=M : continue
+        # 인덱스 범위체크
+        if nx <0 or ny <0 or nx >= N or ny >=M : continue
 
-        # 방문하지 않았고, 안익은(0) 토마토 자리만 가능 
-        if vis[nx][ny] != 0 or board[nx][ny] != 0 : continue
+        # 이미 방문한곳
+        if visit[nx][ny] >=1 : continue
 
-        # 방문체크-> 거리 기반으로 큐에넣기
-        vis[nx][ny]= vis[cur_x][cur_y]+ 1
+        # 토마토가 없는곳 
+        if board[nx][ny] == -1 : continue
+        
+        # 거리계산(방문체크 포함) 후  큐에넣기
+        visit[nx][ny]= visit[cur_x][cur_y] +1
         q.append((nx,ny))
-
-        # 사과도 익게 처리
-        board[nx][ny]=1
-
-###############
-flag=0
 
 for a in range(N):
     for b in range(M):
+        # 예외) 익지 못한 토마토가 존재할때 -1출력 , 종료
+        if visit[a][b] == 0 : 
+            print(-1)
+            sys.exit()
 
-        # 안익은 0 이 존재 -> -1 출력
-        if board[a][b] == 0 : 
-            flag = -1
-            break
+        # vis 안에서 최대값 찾기
+        day = max(day,visit[a][b])
 
-        # vis 행렬에서 최대값 찾기
-        day = max(day, vis[a][b])
-        
-if flag == -1 :
-    print(-1)
+# 최종 출력 : 시작점 포함이니 -1. 
+print(day- 1)
 
 
-else: #입력이 이미 모두 익은 케이스도 포함 (day=0)
-    print(day- 1) 
-
-# ### 출력 확인용 ### 
-# for a in range(N):
-#     print(vis[a])        
+# 디버깅
+# for row in visit:
+#     print(row)
