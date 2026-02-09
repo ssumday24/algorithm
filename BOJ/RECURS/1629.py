@@ -3,6 +3,8 @@
 """
 (A**B) % C = ?
 {(A**(B/2) % C) (A**(B/2) % C)} % C ... 반복 
+
+시간복잡도: B가 1/2 씩 줄어드므로 O(log b)
 """
 import sys
 input = sys.stdin.readline
@@ -20,8 +22,9 @@ def mod(a,b,c):
     # (f(a,b-1,c)*(a mod c)) mod C
     if b %2 ==1 :
         return (mod(a,b-1,c)*(a % c)) % c
+    # 전개하면 위의 a%c 를 a로 바꿔도 되긴함
     
     # 2분의 b 승으로 분할 
-    return mod(a,b/2,c)**2 % c  
+    return mod(a,b//2,c)**2 % c  
 
 print(mod(A,B,C))
