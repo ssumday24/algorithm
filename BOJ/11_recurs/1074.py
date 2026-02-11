@@ -24,6 +24,7 @@ def func(n,r,c):
         else : return 3
 
     area = 4**(n-1) # 각 사분면의 넓이
+    ##### half = 2**(n-1) 
 
     # 2 사분면 ex) func(2,1,1)
     if r< 2**(n-1) and c < 2 ** (n-1):
