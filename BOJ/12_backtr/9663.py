@@ -1,4 +1,4 @@
-# BOJ 15654
+# BOJ 9663
 # N-queen - G4
 # 26.02.27
 """
@@ -16,7 +16,6 @@ sys.setrecursionlimit(10**6)
 
 N= int(input())
 cnt = 0
-arr = [[0]*N for _ in range(N)] # N*N matrix 
 
 vis_1=[False]*N  #각 col에 퀸의 배치여부
 diag_1=[False]*(2*N-1)  # 오른대각(/) : 각 2N-1 개 존재 
