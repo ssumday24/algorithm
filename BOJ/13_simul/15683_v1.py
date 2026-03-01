@@ -1,6 +1,7 @@
 # BOJ 15683
 # 감시 - G3
-# 26.02.27
+# 26.02.27  
+# 버전1
 """
 -SW A형기출(2문제 3h)
 - CT 서로 통과가능
@@ -20,7 +21,7 @@
   for a in range(i-1,-1,-1):
   (끝나는 숫자 포함하지 않으니 신경쓰기)
   
-- 방향이동에 대한 추상화 (BFS의 dx,dy)
+- *** 방향이동에 대한 추상화 (BFS의 dx,dy)
 """
 import sys
 input=sys.stdin.readline
