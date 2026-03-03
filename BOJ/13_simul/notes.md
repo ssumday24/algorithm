@@ -53,3 +53,13 @@ print(office)
 따라서 [row[:] for row in current_arr]
 """
 ```
+
+# 비트연산
+
+### 왼쪽 shift (<<)
+`1 << (2 * cctv.size())`
+
+`print(4<<1)` 
+1. 4 ->100 이진법 변환
+2. 1000 비트연산
+3. 8 - 다시 10진법 변환후 출력
