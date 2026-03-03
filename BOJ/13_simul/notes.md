@@ -36,7 +36,7 @@ new_arr = [row[:] for row in current_arr]
 여기서 copied=row[:] 임에 주의
 
 ```python
-office = [[0, 0, 0], 
+office = [[0, 0, 0],
           [0, 0, 0]]
 
 #(얕은 복사)
@@ -46,7 +46,7 @@ copied = [row for row in office]
 copied[0][0] = '#'
 
 # 원본 office 출력
-print(office) 
+print(office)
 # 결과: [['#', 0, 0], [0, 0, 0]] -> 원본까지 오염
 
 """
@@ -57,9 +57,29 @@ print(office)
 # 비트연산
 
 ### 왼쪽 shift (<<)
+
 `1 << (2 * cctv.size())`
 
-`print(4<<1)` 
+`print(4<<1)`
+
 1. 4 ->100 이진법 변환
 2. 1000 비트연산
 3. 8 - 다시 10진법 변환후 출력
+
+# 배열회전
+
+```python
+# 배열 90도회전 R*C -> C*R
+def rotate(stick,R,C):
+    new_arr= [[0]*R for _ in range(C)]
+
+    for x in range(R):
+        for y in range(C):
+            # (x,y) -> (y,-x+R-1)
+            if stick[x][y]==1:
+                new_arr[y][R-1-x]=1
+
+    return new_arr
+
+#좌표들로 일차방정식 유도가능
+```

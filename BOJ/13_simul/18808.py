@@ -2,9 +2,6 @@
 # 스티커붙이기 - G3
 # 26.03.03
 """
-- TODO: 붙일수있는곳 : 가장 위쪽 + 가장 왼쪽 순
-- 0-90-180-270도 회전시에도 못찾으면 버림 
-스티커마다 각도별 find -> 추가or버리기-> 다음스티커 
 - for문 변수 여러개같이?
 """
 import sys
@@ -16,80 +13,86 @@ N,M,K=map(int,input().split())
 # 노트북: N*M
 board=[[0]*M for _ in range(N)]
 
-# 성공:1 실패: 0 , board 원본수정
-# TODO: 붙일수있는곳 : 가장 위쪽 + 가장 왼쪽 순
-def find(board,stick,R,C,cur_x,cur_y):
-    # 스티커 배치 좌표 보존위해 사용
-    check_x=cur_x
-    check_y=cur_y
+####################################
+def find(board,stick,start_x,start_y):
+    R = len(stick)
+    C = len(stick[0])
+    
+    # 스티커(R*C)가 모눈종이 벗어날때 (각도마다 스티커모양 고정)
+    if start_x +R >N or start_y +C>M: 
+        return 0
     
     # 1. 모든 구역이 깨끗한지 검사
     for i in range(R):
         for j in range(C):
-            
-            # 인덱스 범위 검사
-            # 모눈종이 벗어날때 (각도마다 스티커모양 고정)
-            if check_x <0 or check_y<0 or check_x>=N or check_y>=M: 
+            # 음수인덱스 검사 
+            if start_x <0 or start_y<0 : 
                 return 0
             
             # 이미 스티커가 있을때
-            if board[check_x][check_y]==1: 
+            # 즉 노트북,스티커 모두 1일때
+            if (board[start_x+i][start_y+j]==1 and 
+                stick[i][j]==1) : 
                 return 0
             
-            # 빈곳(0)일때 오른쪽이동
-            check_y +=1
-                
-        # 아랫줄 이동 
-        check_x +=1 
-        
-    # 2. 이제 스티커 배치가능     
+    # 2. 이제 스티커 배치가능 -> 원본 board 수정가능
     for i in range(R):
         for j in range(C):
             # 노트북에 붙이기
             if stick[i][j]==1:
-                board[cur_x][cur_y]=1
-            cur_y +=1
-        cur_x +=1
+                board[start_x+i][start_y+j]=1
     
     # 3. 성공 
     return 1
             
             
 ####################################
-# 배열회전    
-def rotate(stick,dir):
-    dx=[-1,0,1,0]
-    dy=[0,1,0,-1]
+# 배열 90도회전 R*C -> C*R
+# 인자로 R,C받지말고 안에서 len()으로 처리
+def rotate(stick):
+    R = len(stick)
+    C = len(stick[0])
     
-    #원본
-    if dir == 0 : return stick
+    new_arr= [[0]*R for _ in range(C)]
 
-    #90도 회전
-    elif dir ==1 :
-        return stick
+    for x in range(R):
+        for y in range(C):
+            # (x,y) -> (y,-x+R-1) 
+            if stick[x][y]==1:
+                new_arr[y][R-1-x]=1
     
-    #180도
-    elif dir==2:
-        return stick
-    
-    #270도
-    elif dir==3:
-        return stick
+    return new_arr
 ####################################
+def try_attach(board,stick):
+    
+    # 각 각도에 대해(4방향)
+    # (원본,rot)->(90,rot)->(180,rot)->(270,rot)
+    for i in range(4):
+        
+        # (0,0)->(N-1,M-1) 전부 대보기
+        for start_x in range(N):
+            for start_y in range(M):
+                # find() 성공 -> break -> 다음스티커 진행
+                if find(board,stick,start_x,start_y) == 1 : 
+                    return
+        
+        # 실패 -> 다음각도 진행 
+        stick = rotate(stick)
+
+
+####################################
+# main파트
+
+# 각 스티커마다 진행
 for _ in range(K):
     R,C = map(int,input().split())
     stick= [list(map(int,input().split())) for _ in range(R)]
     
-    for dir in range(4):
-        # 0-90-180-270회전
-        # TODO : 
-        stick = rotate(stick,dir)
+    try_attach(board,stick)
         
-        # 스티커 붙이기 성공 -> 다음스티커 진행
-        if find(board,stick) == 1 : break
-    
+      
         
-
+        
 #구하는것 : 스티커 수
 cnt=0
 for row in board:
