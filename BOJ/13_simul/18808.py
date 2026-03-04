@@ -3,6 +3,9 @@
 # 26.03.03
 """
 - for문 변수 여러개같이?
+
+시간복잡도 계산
+K* (N*M) * 4 * R*C = 6400,0000
 """
 import sys
 input=sys.stdin.readline
@@ -12,6 +15,7 @@ N,M,K=map(int,input().split())
 
 # 노트북: N*M
 board=[[0]*M for _ in range(N)]
+
 
 ####################################
 def find(board,stick,start_x,start_y):
@@ -55,11 +59,18 @@ def rotate(stick):
     
     new_arr= [[0]*R for _ in range(C)]
 
+    # 이건 1인곳만 교체,이문제에선 0초기화라 문제되진않음
+    # for x in range(R):
+    #     for y in range(C):
+    #         # (x,y) -> (y,-x+R-1) 
+    #         if stick[x][y]==1:
+    #             new_arr[y][R-1-x]=1
+                
+    # 배열회전 개선)
     for x in range(R):
         for y in range(C):
-            # (x,y) -> (y,-x+R-1) 
-            if stick[x][y]==1:
-                new_arr[y][R-1-x]=1
+            new_arr[y][-x+R-1]=stick[x][y]
+                
     
     return new_arr
 ####################################
