@@ -83,3 +83,17 @@ def rotate(stick,R,C):
 
 #좌표들로 일차방정식 유도가능
 ```
+
+# 배열에서 pop() 주의 - 03.05
+
+```python
+arr = ['A', 'B', 'C']
+for i in range(3):
+    arr.pop(i)
+```
+
+- 인덱스를 돌면서 pop()을 해버리면 절대 안됨
+- i=0 : arr=[B,C] 남음
+- i=1 : arr=[C] 남음
+- i=2 : indexError 발생
+
