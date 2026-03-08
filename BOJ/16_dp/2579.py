@@ -5,6 +5,7 @@ import sys
 
 input = sys.stdin.readline
 """
+DP연습문제(3) -2차원배열
 1.테이블 정의 -> 2.점화식 찾기 -> 3.초기값 설정 
 """
 # main
