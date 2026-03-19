@@ -116,7 +116,13 @@ for i in range(3):
 
 - 슬라이딩 윈도우 - 스티커붙이기 #18808
 
-    ```python
-    for i in range(N - R + 1):
-            for j in range(M - C + 1):
-    ```
+  ```python
+  for i in range(N - R + 1):
+          for j in range(M - C + 1):
+  ```
+
+## 배열회전(2)
+
+- 시계방향으로 90도 회전
+- zip은 2차원배열의 column 끼리 묶어줌
+  `rotated_arr = list(map(list, zip(*arr[::-1])))`
