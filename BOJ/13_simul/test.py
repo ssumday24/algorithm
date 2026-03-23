@@ -13,3 +13,16 @@ func4(39)
 print("======")
 
 print(4<<1)
+
+
+
+arr=[1,2,3,4]
+print(arr[-2])
+
+arr4=[(3,1),(2,999)]
+print(arr4[0])
+
+
+ar1=[(3,'D')]
+for i,j in ar1:
+    print(i,j)
