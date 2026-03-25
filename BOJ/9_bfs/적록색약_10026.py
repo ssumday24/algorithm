@@ -69,7 +69,7 @@ result1=bfs()
 for i in range(N):
     for j in range(N):
         # 초록색 -> 전부 빨강으로 교체
-        if board[i][j]=='G':
+        if board[i][j]=='G  ':
             board[i][j]='R'
 
 result2=bfs()
