@@ -1,5 +1,5 @@
 # BOJ 톱니바퀴_14891 - G5
-# 26.03.25
+# 26.03.26
 import sys
 
 input = sys.stdin.readline
