@@ -126,3 +126,26 @@ for i in range(3):
 - 시계방향으로 90도 회전
 - zip은 2차원배열의 column 끼리 묶어줌
   `rotated_arr = list(map(list, zip(*arr[::-1])))`
+
+# 중력 작용 - 배열밀기
+- 큐 만들어서 popleft() 해도됨
+```python
+def down(arr):
+    R,C=12,6
+
+    #각 세로줄마다
+    for j in range(C):
+        temp=[]
+
+        for i in range(R-1,-1,-1):
+            if arr[i][j]!='.':
+                temp.append(arr[i][j])
+
+        for i in range(R-1,-1,-1):
+
+            if temp:
+                # 큐 만들어서 popleft() 해도됨
+                arr[i][j]=temp.pop(0)
+            else:
+                arr[i][j]='.'
+```
