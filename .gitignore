@@ -1,0 +1,7 @@
+.cph/
+.vs/
+__pycache__/
+*.pyc
+
+#
+test.py
