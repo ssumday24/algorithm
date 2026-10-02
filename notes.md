@@ -1,18 +1,40 @@
-# 1. bfs의 상하좌우 탐색
+# 백트래킹 조합 -> start idx 넘겨주기
 
-```python
-dx=[-1,1,0,0]
-dy=[0,0,-1,1]
+- BOJ 14502 연구소
 
-for i in range(4):
-    nx = cur_x+dx[i]
-    ny = cur_y+dy[i]
-    arr[nx][ny]
+유일성 보장 + 시간복잡도 감소
+
+```
+for i in range(start, len(empty)):
 ```
 
-# 2. 한방향으로 끝까지 탐색
+# 2차원 배열에서 조합 구현
 
-- #15683-감시
+줄바꿈이 생기면 j=0 으로 돌아가야하니 start_j부터
+무작정 시작하면 안됨
+
+```
+ for i in range(start_i, N):
+        # 줄바꿈 일어나기전 첫 줄에서만 start_j부터 시작
+        if i == start_i:
+            start_col = start_j
+
+        # 다음줄부터는 처음부터시작
+        else:
+            start_col = 0
+
+        for j in range(start_j,M):
+```
+
+# BFS 에서 visited 가 필요없는 경우
+
+- BOJ 14502 연구소
+  BFS 과정에서 빈칸 0을 바이러스 2로 즉시 변경하기 때문에 배열 값 자체로 이미 방문한 칸인지 구분가능
+  그러니 별도의 visited 배열 없이도 각 칸은 최대 한 번만 큐에 들어감
+
+# 한 방향으로 끝까지 탐색
+
+- BOJ 15683 감시
 
 ```python
 dx=[-1,1,0,0]
@@ -128,7 +150,9 @@ for i in range(3):
   `rotated_arr = list(map(list, zip(*arr[::-1])))`
 
 # 중력 작용 - 배열밀기
+
 - 큐 만들어서 popleft() 해도됨
+
 ```python
 def down(arr):
     R,C=12,6
